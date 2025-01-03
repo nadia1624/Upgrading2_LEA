@@ -72,7 +72,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const valid = {
-        username: "required",
+        email: "required, isEmail",
         password: "required",
     };
 
@@ -85,15 +85,15 @@ const login = async (req, res) => {
             });
         }
 
-        const { username, password } = userValidation.data;
+        const { email, password } = userValidation.data;
 
         const user = await User.findOne({
-            where: { username },
+            where: { email },
         });
 
         if (!user) {
             return res.status(404).json({
-                message: "User tidak ditemukan",
+                message: "Email tidak ditemukan",
             });
         }
 
